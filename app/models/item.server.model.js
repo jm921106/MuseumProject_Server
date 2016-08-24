@@ -6,7 +6,7 @@ var ItemSchema = new Schema({
     title : String,
     content : String,
     imgURL : String,
-    count : Number
+    like : Number
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

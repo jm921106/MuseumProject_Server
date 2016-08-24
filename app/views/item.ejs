@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<h1>Item Setting View</h1>
+<p>
+    [item insert]  <br/><br/>
+    (임의로 json 데이터를 db에 넣어준다. 한번만 실행할 것)
+    <a href="/itemInsert">item insert</a>
+</p>
+
+<p>
+    [item select]
+
+<form action="/itemSelect" method="post">
+    <input type="number" name="code" placeholder="code입력"/>
+    <input type="submit" value="item select">
+</form>
+</p>
+
+<p>
+    [item like]
+    <form action="/itemLike" method="post">
+        <label>좋아요상태<input type="checkbox" name="likeStatus"/></label>
+        <input type="number" name="code" placeholder="code입력"/>
+        <input type="submit" value="item like">
+    </form>
+</p>
+
+
+</body>
+</html>

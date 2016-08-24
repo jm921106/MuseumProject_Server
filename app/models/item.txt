@@ -1,4 +1,4 @@
-{"item":[
+{"items":[
   {"code":"001", "title":"title1", "content":"content1", "imgURL" : "./image/img1.png", "like" : 0},
   {"code":"002", "title":"title1", "content":"content2", "imgURL" : "./image/img2.png", "like" : 0},
   {"code":"003", "title":"title1", "content":"content3", "imgURL" : "./image/img3.png", "like" : 0},
