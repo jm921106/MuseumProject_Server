@@ -2,34 +2,59 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
-<h1>Item Setting View</h1>
-<p>
-    [item insert]  <br/><br/>
-    (임의로 json 데이터를 db에 넣어준다. 한번만 실행할 것)
-    <a href="/itemInsert">item insert</a>
-</p>
+<span><h1>Item Setting View [Status : <%= status %>]</h1></span>
 
 <p>
-    [item select]
-
-<form action="/itemSelect" method="post">
-    <input type="number" name="code" placeholder="code입력"/>
-    <input type="submit" value="item select">
+<h3>[item insert]</h3>
+<form action="/itemInsert" method="post">
+    <input type="text" name="itemCode" placeholder="code">
+    <input type="text" name="itemCategory" placeholder="category(number)">
+    <input type="text" name="itemTitle" placeholder="title">
+    <input type="text" name="itemContent_Adult" placeholder="content_adult">
+    <input type="text" name="itemContent_Kid" placeholder="content_kid">
+    <input type="text" name="itemImgUrl" value="../../../public/img/git.png">
+    <input type="submit" value="[item insert]">
 </form>
 </p>
 
 <p>
-    [item like]
-    <form action="/itemLike" method="post">
-        <label>좋아요상태<input type="checkbox" name="likeStatus"/></label>
-        <input type="number" name="code" placeholder="code입력"/>
-        <input type="submit" value="item like">
-    </form>
+<h3>[item select]</h3>
+<form action="/itemSelect" method="post">
+    <label>code로 찾기</label>
+    <input type="number" name="code" placeholder="code입력"/>
+    <input type="submit" value="code select">
+</form>
+<br/>
+
+<form action="/itemCategotySelect" method="post">
+    <label>category로 찾기</label>
+    <input type="number" name="category" placeholder="category입력"/>
+    <input type="submit" value="category select">
+</form>
 </p>
 
+
+<p>
+<h3>[likeCall]</h3>
+<form action="/likeCall" method="post">
+    <input type="number" name="itemCode" placeholder="code입력"/>
+    <input type="number" name="deviceInfo" placeholder="device/id입력"/>
+    <input type="submit" value="[likeCall]">
+</form>
+</p>
+
+
+<p>
+<h3>[likePlus]</h3>
+<form action="/likePlus" method="post">
+    <input type="number" name="itemCode" placeholder="code입력"/>
+    <input type="number" name="deviceInfo" placeholder="device/id입력"/>
+    <label for="likeStatus">좋아요상태</label><input id="likeStatus" type="checkbox" name="likeStatus"/>
+    <input type="submit" value="[likePlus]">
+</form>
+</p>
 
 </body>
 </html>

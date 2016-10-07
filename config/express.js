@@ -37,11 +37,35 @@ module.exports = function () {
     }));
     app.use(methodOverride());
     app.use(express.static(path.join(__dirname, 'public')));
+    
+    // Add headers [access-control-allow-origin] 정책을 무시하기 위한 method
+    app.use(function (req, res, next) {
 
-    require('../app/routes/user.server.route.js')(app);
+        // Website you wish to allow to connect
+        res.setHeader('Access-Control-Allow-Origin', '*');
+
+        res.setHeader('Access-Control-Allow-Credentials', true); 
+
+        // Request methods you wish to allow
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+        // Request headers you wish to allow
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+        // Set to true if you need the website to include cookies in the requests sent
+        // to the API (e.g. in case you use sessions)
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
+        // Pass to next layer of middleware
+        next();
+    });
+
+    // require('../app/routes/user.server.route.js')(app);
     require('../app/routes/index.server.route.js')(app);
     require('../app/routes/item.server.route.js')(app);
     require('../app/routes/pattern.server.route.js')(app);
+    require('../app/routes/today.server.route.js')(app);
+    require('../app/routes/notice.server.route.js')(app);
 
     // require('./app/models/mongoDB.js').connect();
 

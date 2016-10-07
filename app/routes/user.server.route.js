@@ -1,8 +1,4 @@
-/**
- * Created by superMoon on 2016-08-17.
- */
-
-var user = require('../../app/controllers/user.server.controller');
+var user = require('../controllers/user.server.controller');
 
 module.exports = function (app) {
     app.route('/user')

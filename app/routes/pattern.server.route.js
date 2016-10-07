@@ -6,4 +6,8 @@ module.exports = function (app) {
     app.post('/pattern', paint.insert);
     app.put('/pattern/:id', paint.update);
     app.delete('/pattern/:id', paint.delete);
+    
+    app.post('/patternInsert', paint.patternInsert);
+    app.post('/patternSelect', paint.patternSelect);
+    app.get('/patternMonthSelect', paint.patternMonthSelect);
 };

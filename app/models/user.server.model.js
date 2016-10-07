@@ -1,6 +1,3 @@
-/**
- * Created by superMoon on 2016-08-17.
- */
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
+</head>
+<body>
+<span><h1>Pattern Setting View [Status : <%= status %>]</h1></span>
+
+<p>
+<h3>[Pattern insert]</h3>
+
+<form action="/patternInsert" method="post">
+    <input type="text" name="patternUserName" placeholder="UserName">
+    <input type="text" name="patternUserPhone" placeholder="UserPhone">
+    <input type="text" name="patternUserAddress" placeholder="UserAddress">
+    <input type="text" name="patternImgUrl" value="../../../public/img/git.png">
+    <input type="submit" value="[pattern insert]">
+</form>
+</p>
+
+<p>
+<h3>[Pattern select]</h3>
+<form action="/patternSelect" method="post">
+    <input type="text" name="patternUserPhone" placeholder="user phone number"/>
+    <input type="submit" value="pattern select">
+</form>
+</p>
+
+<p>
+<h3>[Pattern month select]</h3>
+<form action="/patternMonthSelect" method="get">
+    <input type="text" name="patternDate" placeholder="yyyy_mm[필요없음]"/>
+    <input type="submit" value="pattern select">
+</form>
+</p>
+
+<p>
+<h3>[Pattern like]</h3>
+<form action="/patternLike" method="post">
+    <label>좋아요상태<input type="checkbox" name="likeStatus"/></label>
+    <input type="number" name="code" placeholder="code입력"/>
+    <input type="submit" value="item like">
+</form>
+</p>
+
+
+</body>
+</html>

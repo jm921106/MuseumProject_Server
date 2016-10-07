@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
+</head>
+<body>
+<span><h1>Notice Setting View [Status : <%= status %>]</h1></span>
+
+<p>
+<h3>[Notice insert]</h3>
+<form action="/noticeInsert" method="post">
+    <input type="text" name="noticeWriter" placeholder="writer">
+    <input type="text" name="noticeTitle" placeholder="title">
+    <input type="text" name="noticeContents" placeholder="contents">
+    <input type="submit" value="[Notice insert]">
+</form>
+</p>
+
+<p>
+<h3>[notice update]</h3>
+<form action="/noticeUpdate" method="post">
+    <input type="text" name="noticeIndex" placeholder="index[pk]">
+    <input type="text" name="noticeWriter" placeholder="writer">
+    <input type="text" name="noticeTitle" placeholder="title">
+    <input type="text" name="noticeContents" placeholder="contents">
+    <input type="submit" value="[Notice update]">
+</form>
+</p>
+
+
+<p>
+<h3>[notice delete]</h3>
+<form action="/noticeDelete" method="post">
+    <input type="text" name="noticeIndex" placeholder="index[pk]">
+    <input type="submit" value="[Notice delete]">
+</form>
+</p>
+
+</body>
+</html>

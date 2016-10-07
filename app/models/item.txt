@@ -1,9 +1,0 @@
-{"items":[
-  {"code":"001", "title":"title1", "content":"content1", "imgURL" : "./image/img1.png", "like" : 0},
-  {"code":"002", "title":"title1", "content":"content2", "imgURL" : "./image/img2.png", "like" : 0},
-  {"code":"003", "title":"title1", "content":"content3", "imgURL" : "./image/img3.png", "like" : 0},
-  {"code":"004", "title":"title1", "content":"content4", "imgURL" : "./image/img4.png", "like" : 0},
-  {"code":"005", "title":"title1", "content":"content5", "imgURL" : "./image/img5.png", "like" : 0},
-  {"code":"006", "title":"title1", "content":"content6", "imgURL" : "./image/img6.png", "like" : 0},
-  {"code":"007", "title":"title1", "content":"content7", "imgURL" : "./image/img7.png", "like" : 0}
-]}

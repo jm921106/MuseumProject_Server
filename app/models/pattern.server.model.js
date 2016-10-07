@@ -8,7 +8,7 @@ var PatternSchema = new Schema({
     phone : String,
     address : String,
     imgURL : String,
-    count : Number
+    like : Number
 });
 
 module.exports = mongoose.model('Pattern', PatternSchema);
