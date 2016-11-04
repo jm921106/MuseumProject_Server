@@ -9,5 +9,6 @@ module.exports = function (app) {
     
     app.post('/patternInsert', paint.patternInsert);
     app.post('/patternSelect', paint.patternSelect);
-    app.get('/patternMonthSelect', paint.patternMonthSelect);
+    app.get('/patternFind', paint.patternFind);
+    // app.get('/patternFind', paint.patternFind);
 };

@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PatternSchema = new Schema({
-    index : Number,
     date : Date,
+    user_id : String,
     name : String,
     phone : String,
     address : String,

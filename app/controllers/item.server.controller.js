@@ -6,17 +6,22 @@ var fs = require('fs');
 exports.render = function (req, res) {
     console.log("item render");
 
-    itemTask.find(function (err, tasks) {
-        if (err) {
-            console.log("/item 에서 db find 중 발생한 err => " + err);
-        }
-
-        console.log("render complete");
-
-        res.render("item", {
-            title: "item render",
-            status: 'render'
-        });
+    // itemTask.find(function (err, tasks) {
+    //     if (err) {
+    //         console.log("/item 에서 db find 중 발생한 err => " + err);
+    //     }
+    //
+    //     console.log("render complete");
+    //
+    //     res.render("item", {
+    //         title: "item render",
+    //         status: 'render'
+    //     });
+    // });
+    
+    res.render("item", {
+        title: "item render",
+        status: 'render'
     });
 };
 
@@ -121,8 +126,7 @@ exports.likePlus = function (req, res) {
         }).save();
 
         console.log('insert완료');
-
-        res.send('좋아요 완료')
+        res.send('좋아요 완료');
         
     } else {
         //delete
@@ -134,7 +138,6 @@ exports.likePlus = function (req, res) {
                 console.log(err);
             }
             console.log('delete완료');
-
             res.send('좋아요 취소')
         })
     }
