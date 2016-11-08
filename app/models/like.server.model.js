@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var LikeSchema = new Schema({
-    code : Number,
+    code : String,
     device : String,
     // status : Boolean
 });

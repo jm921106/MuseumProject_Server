@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title>관리자 페이지</title>
     <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
 </head>
 <body>
-<span><h1>Notice Setting View [Status : <%= status %>]</h1></span>
+<span><h1>공지 관리  [ 현재 상태 : <%= status %> ]</h1></span>
+
+<table style="border : solid 3px black;" border="border : solid 1px black;">
+    <tr>
+        <th style="width : 5vw;">순서[pk]</th>
+        <th style="width : 5vw;">날짜</th>
+        <th style="width : 10vw;">제목</th>
+        <th style="width : 20vw;">내용</th>
+        <th style="width : 5vw;">작성자</th>
+    </tr>
+    <% for(var i=0; i<notice.length; i++) {%>
+    <tr>
+        <td><%= notice[i].index%></td>
+        <td><%= notice[i].date%></td>
+        <td><%= notice[i].title%></td>
+        <td><%= notice[i].contents%></td>
+        <td><%= notice[i].writer%></td>
+    </tr>
+    <% }%>
+</table>
 
 <p>
-<h3>[Notice insert]</h3>
+<h3>[공지 추가]</h3>
 <form action="/noticeInsert" method="post">
-    <input type="text" name="noticeWriter" placeholder="writer">
     <input type="text" name="noticeTitle" placeholder="title">
     <input type="text" name="noticeContents" placeholder="contents">
-    <input type="submit" value="[Notice insert]">
+    <input type="text" name="noticeWriter" placeholder="writer">
+    <input type="submit" value="공지추가하기">
 </form>
 </p>
 
 <p>
-<h3>[notice update]</h3>
+<h3>[공지 수정]</h3>
 <form action="/noticeUpdate" method="post">
-    <input type="text" name="noticeIndex" placeholder="index[pk]">
-    <input type="text" name="noticeWriter" placeholder="writer">
+    <input type="text" name="noticeIndex" placeholder="순서[INDEX]를 입력해 주세요.">
     <input type="text" name="noticeTitle" placeholder="title">
     <input type="text" name="noticeContents" placeholder="contents">
-    <input type="submit" value="[Notice update]">
+    <input type="text" name="noticeWriter" placeholder="writer">
+    <input type="submit" value="공지수정하기">
 </form>
 </p>
 
-
 <p>
-<h3>[notice delete]</h3>
+<h3>[공지 삭제]</h3>
 <form action="/noticeDelete" method="post">
-    <input type="text" name="noticeIndex" placeholder="index[pk]">
-    <input type="submit" value="[Notice delete]">
+    <input type="text" name="noticeIndex" placeholder="순서[INDEX]를 입력해 주세요.">
+    <input type="submit" value="공지삭제하기">
 </form>
 </p>
 

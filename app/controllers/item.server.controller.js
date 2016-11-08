@@ -77,57 +77,55 @@ exports.itemSelect = function (req, res) {
 
 // costomize post(/likeCall)
 exports.likeCall = function (req, res) {
-
-    // console.log(req.header);
-
+    
     console.log(req.body.itemCode);
     console.log(req.body.deviceInfo);
 
     likeTask.find({code : req.body.itemCode},  function(err, tasks) {
-        if (err) {
+        if (err) 
             console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
-        }
 
-        // tasks for문
-        // length 0 >>> insert 0으로
-        // 있으면 reurn count // 좋아요상태
+
         var likeData = {
             "count" : 0,
             "status" : false
         };
 
-        tasks.forEach(function (task) {
-            likeData.count++;
-            if(task.device == req.body.deviceInfo) {
-                likeData.status = true;
-            }
-        });
+        if(tasks.length > 0) {
+            // tasks for문
+            // length 0 >>> insert 0으로
+            // 있으면 reurn count // 좋아요상태
+            tasks.forEach(function (task) {
+                likeData.count++;
+                if(task.device == req.body.deviceInfo) {
+                    likeData.status = true;
+                }
+            });
+        }
 
         console.log(likeData.count);
         console.log(likeData.status);
-
         res.send(likeData);
     });
 }
 
 // costomize post(/likePlus)
 exports.likePlus = function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     console.log(req.body.itemCode);
     console.log(req.body.deviceInfo);
     console.log(req.body.likeStatus);
-
-    if(req.body.likeStatus == 'on') {
+    console.log(req.body.likeStatus == 'true')
+    
+    if(req.body.likeStatus == 'true') {
         // insert
-
         likeTask({
             code : req.body.itemCode,
             device : req.body.deviceInfo
         }).save();
 
         console.log('insert완료');
-        res.send('좋아요 완료');
-        
+        res.send('true');
     } else {
         //delete
         likeTask.remove({
@@ -138,10 +136,24 @@ exports.likePlus = function (req, res) {
                 console.log(err);
             }
             console.log('delete완료');
-            res.send('좋아요 취소')
+            res.send(false)
         })
     }
-}
+};
+
+
+// costomize post(/likePlus)
+exports.myLike = function (req, res) {
+    // console.log(req.body);
+    console.log(req.body.deviceInfo);
+
+    likeTask.find({deviceInfo : req.body.deviceInfo},  function(err, tasks) {
+        if (err)
+            console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
+        
+        res.send(tasks);
+    });
+};
 
 
 

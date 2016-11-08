@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var NoticeSchema = new Schema ({
     index : Number,
-    date : String,
+    date : Date,
     writer : String,
     title : String,
     contents : String

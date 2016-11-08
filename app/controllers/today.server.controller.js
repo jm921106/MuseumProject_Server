@@ -8,9 +8,8 @@ exports.todayLoad = function (req, res) {
     var today = nowDate.getFullYear() + '-' + (nowDate.getMonth()+1) + '-' + nowDate.getDate();
     
     Today.find({date : today}, function (err, tasks) {
-        if(err) {
+        if(err)
             console.log(err);
-        }
 
         if( tasks.length > 0 ) {
             console.log('update');

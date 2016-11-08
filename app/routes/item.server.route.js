@@ -15,5 +15,6 @@ module.exports = function (app) {
     
     app.post('/likeCall', item.likeCall);
     app.post('/likePlus', item.likePlus);
+    app.post('/myLike', item.myLike);
 };
 
