@@ -115,7 +115,7 @@ exports.likePlus = function (req, res) {
     console.log(req.body.itemCode);
     console.log(req.body.deviceInfo);
     console.log(req.body.likeStatus);
-    console.log(req.body.likeStatus == 'true')
+    console.log(req.body.likeStatus == 'true');
     
     if(req.body.likeStatus == 'true') {
         // insert
@@ -147,27 +147,13 @@ exports.myLike = function (req, res) {
     // console.log(req.body);
     console.log(req.body.deviceInfo);
 
-    likeTask.find({deviceInfo : req.body.deviceInfo},  function(err, tasks) {
-        if (err)
-            console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
-        
+    likeTask.find({device : req.body.deviceInfo},  function(err, tasks) {
+        if (err) console.log("/myLike 에서 발생한 err => " + err);
+
+        console.log(tasks);
         res.send(tasks);
     });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // restful[1] search
 exports.search = function (req, res) {

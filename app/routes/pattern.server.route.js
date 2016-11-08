@@ -9,6 +9,9 @@ module.exports = function (app) {
     
     app.post('/patternInsert', paint.patternInsert);
     app.post('/patternSelect', paint.patternSelect);
-    app.get('/patternFind', paint.patternFind);
+    app.post('/patternFind', paint.patternFind);
     // app.get('/patternFind', paint.patternFind);
+
+    app.post('/patternLikeCall', paint.likeCall);
+    app.post('/patternLikePlus', paint.likePlus);
 };

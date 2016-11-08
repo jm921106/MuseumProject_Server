@@ -1,4 +1,5 @@
 var Paint = require('../models/pattern.server.model');
+var PaintLike = require('../models/patternLike.server.model');
 var fs = require('fs');
 // var path = require('path');
 
@@ -94,7 +95,9 @@ exports.patternSelect = function (req, res) {
 
 // costomize get(/patternSelect)
 exports.patternFind = function (req, res) {
-
+    
+    var post_num = req.body.post_num;
+    
     // now month check
     var now_date = new Date();
     var year = now_date.getFullYear();
@@ -106,14 +109,89 @@ exports.patternFind = function (req, res) {
         $where: function () {
             return this.date.getMonth() == new Date().getMonth()
         }
+    }, {}, {
+        sort: { date : -1 }
     }, function (err, tasks) {
         if (err)
             console.log(err);
-        
+
+        // [5개씩 보내기]
+        var send_task = [];
+        for(var i=post_num*5; i<post_num*5+5; i++) {
+            if(tasks[i] != undefined)
+                send_task.push(tasks[i])
+        }
+        //0 0~4
+        //1 5~9
+        //2 10~14
+        //3 15~19
         // 5개만 미리 보내고 더 필요한 것은 추가 적으로 요청
-        res.send(tasks);
+        res.send(send_task);
     }); // find
 }
+
+// costomize post(/likeCall)
+exports.likeCall = function (req, res) {
+
+    console.log(req.body.imgURL);
+    console.log(req.body.deviceInfo);
+
+    PaintLike.find({imgURL : req.body.imgURL},  function(err, tasks) {
+        if (err) console.log("/patternLike 에서 발생한 err => " + err);
+
+        var likeData = {
+            "count" : 0,
+            "status" : false
+        };
+
+        if(tasks.length > 0) {
+            // tasks for문
+            // length 0 >>> insert 0으로
+            // 있으면 reurn count // 좋아요상태
+            tasks.forEach(function (task) {
+                likeData.count++;
+                if(task.device == req.body.deviceInfo) {
+                    likeData.status = true;
+                }
+            });
+        }
+
+        console.log(likeData.count);
+        console.log(likeData.status);
+        res.send(likeData);
+    });
+}
+
+// costomize post(/likePlus)
+exports.likePlus = function (req, res) {
+    // console.log(req.body);
+    console.log(req.body.imgURL);
+    console.log(req.body.deviceInfo);
+    console.log(req.body.likeStatus);
+
+    if(req.body.likeStatus == 'true') {
+        // insert
+        PaintLike({
+            imgURL : req.body.imgURL,
+            device : req.body.deviceInfo
+        }).save();
+
+        console.log('insert완료');
+        res.send('true');
+    } else {
+        //delete
+        PaintLike.remove({
+            imgURL : req.body.imgURL,
+            device : req.body.deviceInfo
+        },function(err, data){
+            if(err) {
+                console.log(err);
+            }
+            console.log('delete완료');
+            res.send(false)
+        })
+    }
+};
 
 /**
  * util
