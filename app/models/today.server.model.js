@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TodaySchema = new Schema ({
-    date : String,
+    dateString : String,
+    date : Date,
     count : Number
 });
 

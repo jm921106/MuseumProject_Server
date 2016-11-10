@@ -4,12 +4,13 @@
     <title>관리자 페이지</title>
     <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
 </head>
-<body>
+<body style="margin: 50px">
 <span><h1>공지 관리  [ 현재 상태 : <%= status %> ]</h1></span>
 
 <table style="border : solid 3px black;" border="border : solid 1px black;">
     <tr>
-        <th style="width : 5vw;">순서[pk]</th>
+        <th style="width : 5vw;">순서</th>
+        <th style="width : 5vw;">ID</th>
         <th style="width : 5vw;">날짜</th>
         <th style="width : 10vw;">제목</th>
         <th style="width : 20vw;">내용</th>
@@ -17,7 +18,8 @@
     </tr>
     <% for(var i=0; i<notice.length; i++) {%>
     <tr>
-        <td><%= notice[i].index%></td>
+        <td><%= parseInt(i+1)%>번</td>
+        <td><%= notice[i].id%></td>
         <td><%= notice[i].date%></td>
         <td><%= notice[i].title%></td>
         <td><%= notice[i].contents%></td>
@@ -39,7 +41,7 @@
 <p>
 <h3>[공지 수정]</h3>
 <form action="/noticeUpdate" method="post">
-    <input type="text" name="noticeIndex" placeholder="순서[INDEX]를 입력해 주세요.">
+    <input type="text" name="noticeIndex" placeholder="변경할 공지의 ID를 입력">
     <input type="text" name="noticeTitle" placeholder="title">
     <input type="text" name="noticeContents" placeholder="contents">
     <input type="text" name="noticeWriter" placeholder="writer">
@@ -50,7 +52,7 @@
 <p>
 <h3>[공지 삭제]</h3>
 <form action="/noticeDelete" method="post">
-    <input type="text" name="noticeIndex" placeholder="순서[INDEX]를 입력해 주세요.">
+    <input type="text" name="noticeIndex" placeholder="삭제할 공지의 ID를 입력">
     <input type="submit" value="공지삭제하기">
 </form>
 </p>

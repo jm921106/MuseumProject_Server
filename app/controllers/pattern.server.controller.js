@@ -1,7 +1,6 @@
 var Paint = require('../models/pattern.server.model');
 var PaintLike = require('../models/patternLike.server.model');
 var fs = require('fs');
-// var path = require('path');
 
 exports.render = function (req, res) {
     console.log("pattern render");
@@ -10,33 +9,6 @@ exports.render = function (req, res) {
         title: 'pattern',
         status: 'render'
     });
-};
-
-// get Image
-exports.search = function (req, res) {
-    // console.log("pattern search");
-    // console.log(req.params.dir);
-    // console.log(req.params.file);
-    res.send(true)
-};
-exports.insert = function (req, res) {
-    console.log(req.body.user_id);
-    console.log(req.body.name);
-    console.log(req.body.phone);
-    console.log(req.body.address);
-    console.log(req.body.result);
-    // img_src
-    // like
-    // date
-    res.send("pattern insert");
-};
-exports.update = function (req, res) {
-    console.log("pattern update");
-    res.send("pattern update");
-};
-exports.delete = function (req, res) {
-    console.log("pattern delete");
-    res.send("pattern delete");
 };
 
 // costomize post(/patternInsert)
@@ -95,9 +67,9 @@ exports.patternSelect = function (req, res) {
 
 // costomize get(/patternSelect)
 exports.patternFind = function (req, res) {
-    
+
     var post_num = req.body.post_num;
-    
+
     // now month check
     var now_date = new Date();
     var year = now_date.getFullYear();
@@ -127,6 +99,59 @@ exports.patternFind = function (req, res) {
         //3 15~19
         // 5개만 미리 보내고 더 필요한 것은 추가 적으로 요청
         res.send(send_task);
+    }); // find
+}
+
+// costomize get(/patternSelect)
+exports.patternMaxFind = function (req, res) {
+    console.log('in patternMaxFind')
+   
+    var post_month;
+    if(req.body.month == undefined) {
+        post_month = new Date().getMonth();
+    } else {
+        post_month = parseInt(req.body.month)-1;
+    }
+
+    // send every month data
+    Paint.find(function (err, tasks) {
+        if (err)
+            console.log(err);
+
+        var send_task = [];
+
+        if(tasks.length > 0) {
+            // 11월 데이터
+            tasks.forEach(function(task, i) {
+                if(task.date.getMonth() == post_month) {
+
+                    // send_task.push(task);
+                    // send_task[i].count = 0;
+                    // PaintLike.find(function(err, likeTasks){
+                    //     likeTasks.forEach(function(likeTask) {
+                    //         if(task.imgURL == likeTask.imgURL) {
+                    //             send_task[i].count += 1;
+                    //             console.log(send_task[i].count)
+                    //         }
+                    //     });
+                    // });
+
+                    res.render("pattern", {
+                        title: 'pattern',
+                        month: post_month,
+                        tasks: tasks
+                    });
+                }
+            });
+
+        } else {
+            res.render("pattern", {
+                title: 'pattern',
+                status: 'render',
+                tasks: []
+            });
+        }
+
     }); // find
 }
 

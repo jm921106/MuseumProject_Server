@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var NoticeSchema = new Schema ({
-    index : Number,
+    id : String,
     date : Date,
     writer : String,
     title : String,

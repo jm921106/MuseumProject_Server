@@ -2,47 +2,78 @@
 <html>
 <head>
     <title><%= title %></title>
-    <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
-<body>
-<span><h1>Pattern Setting View [Status : <%= status %>]</h1></span>
+<body style="margin: 50px;">
 
-<p>
-<h3>[Pattern insert]</h3>
+<span>
+    <h1>소원을 담은 문양 페이지 [<%= parseInt(month+1)%>월]</h1>
+    <form method="post" action="/patternMaxFind">
+        <input type="text" name="month" placeholder="원하는 달을 입력해주세요... ">
+        <input type="submit" value="확인"/>
+    </form>
+    <br><br><br><br>
+</span>
 
-<form action="/patternInsert" method="post">
-    <input type="text" name="patternUserName" placeholder="UserName">
-    <input type="text" name="patternUserPhone" placeholder="UserPhone">
-    <input type="text" name="patternUserAddress" placeholder="UserAddress">
-    <input type="text" name="patternImgUrl" value="../../../public/img/git.png">
-    <input type="submit" value="[pattern insert]">
-</form>
-</p>
 
-<p>
-<h3>[Pattern select]</h3>
-<form action="/patternSelect" method="post">
-    <input type="text" name="patternUserPhone" placeholder="user phone number"/>
-    <input type="submit" value="pattern select">
-</form>
-</p>
+<table style="border : solid 3px black;" border="border : solid 1px black;">
+    <tr>
+        <th style="width : 5vw;">순서</th>
+        <th style="width : 7vw;">이름</th>
+        <th style="width : 10vw;">핸드폰</th>
+        <th style="width : 20vw;">주소</th>
+        <th style="width : 5vw;">좋아요</th>
+        <th style="width : 5vw;">이미지</th>
+    </tr>
+    <% for(var i = 0; i < tasks.length; i++) { %>
+    <tr>
+        <td><%= parseInt(i+1) %> 등</td>
+        <td><%= tasks[i].name %></td>
+        <td><%= tasks[i].phone %></td>
+        <td><%= tasks[i].address %></td>
+        <td><%= tasks[i].count %></td>
+        <% var imgURL = "/public/repository/" + tasks[i].imgURL %>
+        <td><img style="width:150px; height:150px;" src='<%= imgURL %>'/></td>
+    </tr>
+    <% } %>
+</table>
 
-<p>
-<h3>[Pattern month select]</h3>
-<form action="/patternMonthSelect" method="get">
-    <input type="text" name="patternDate" placeholder="yyyy_mm[필요없음]"/>
-    <input type="submit" value="pattern select">
-</form>
-</p>
+<!--<p>-->
+<!--<h3>[Pattern insert]</h3>-->
 
-<p>
-<h3>[Pattern like]</h3>
-<form action="/patternLike" method="post">
-    <label>좋아요상태<input type="checkbox" name="likeStatus"/></label>
-    <input type="number" name="code" placeholder="code입력"/>
-    <input type="submit" value="item like">
-</form>
-</p>
+<!--<form action="/patternInsert" method="post">-->
+<!--<input type="text" name="patternUserName" placeholder="UserName">-->
+<!--<input type="text" name="patternUserPhone" placeholder="UserPhone">-->
+<!--<input type="text" name="patternUserAddress" placeholder="UserAddress">-->
+<!--<input type="text" name="patternImgUrl" value="../../../public/img/git.png">-->
+<!--<input type="submit" value="[pattern insert]">-->
+<!--</form>-->
+<!--</p>-->
+
+<!--<p>-->
+<!--<h3>[Pattern select]</h3>-->
+<!--<form action="/patternSelect" method="post">-->
+<!--<input type="text" name="patternUserPhone" placeholder="user phone number"/>-->
+<!--<input type="submit" value="pattern select">-->
+<!--</form>-->
+<!--</p>-->
+
+<!--<p>-->
+<!--<h3>[Pattern month select]</h3>-->
+<!--<form action="/patternMonthSelect" method="get">-->
+<!--<input type="text" name="patternDate" placeholder="yyyy_mm[필요없음]"/>-->
+<!--<input type="submit" value="pattern select">-->
+<!--</form>-->
+<!--</p>-->
+
+<!--<p>-->
+<!--<h3>[Pattern like]</h3>-->
+<!--<form action="/patternLike" method="post">-->
+<!--<label>좋아요상태<input type="checkbox" name="likeStatus"/></label>-->
+<!--<input type="number" name="code" placeholder="code입력"/>-->
+<!--<input type="submit" value="item like">-->
+<!--</form>-->
+<!--</p>-->
 
 
 </body>
