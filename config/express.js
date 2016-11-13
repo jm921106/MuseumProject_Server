@@ -45,15 +45,8 @@ module.exports = function () {
     app.use(bodyParser.json({limit: '50mb'}));
     app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     app.use(cookieParser());
-    // app.use(session({
-    //     saveUnintialized: true,
-    //     resave: true,
-    //     secret: config.sessionSecret
-    // }));
-    // app.use(methodOverride());
     app.use('/public', express.static(path.join(__dirname, '../public')));
-
-    // require('../app/routes/user.server.route.js')(app);
+    
     require('../app/routes/index.server.route.js')(app);
     require('../app/routes/item.server.route.js')(app);
     require('../app/routes/pattern.server.route.js')(app);

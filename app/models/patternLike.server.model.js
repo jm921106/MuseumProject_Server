@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var LikeSchema = new Schema({
     imgURL : String,
-    device : String,
-    // status : Boolean
+    device : String
 });
 
 module.exports = mongoose.model('patternLike', LikeSchema);

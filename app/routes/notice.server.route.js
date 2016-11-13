@@ -6,5 +6,4 @@ module.exports = function (app) {
     app.post('/noticeInsert', notice.noticeInsert);
     app.post('/noticeUpdate', notice.noticeUpdate);
     app.post('/noticeDelete', notice.noticeDelete);
-    
 };

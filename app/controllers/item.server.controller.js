@@ -5,19 +5,6 @@ var fs = require('fs');
 // item render get(/item)
 exports.render = function (req, res) {
     console.log("item render");
-
-    // itemTask.find(function (err, tasks) {
-    //     if (err) {
-    //         console.log("/item 에서 db find 중 발생한 err => " + err);
-    //     }
-    //
-    //     console.log("render complete");
-    //
-    //     res.render("item", {
-    //         title: "item render",
-    //         status: 'render'
-    //     });
-    // });
     
     res.render("item", {
         title: "item render",
@@ -77,14 +64,15 @@ exports.itemSelect = function (req, res) {
 
 // costomize post(/likeCall)
 exports.likeCall = function (req, res) {
+    console.log('in like call');
     
-    console.log(req.body.itemCode);
+    console.log(req.body.code);
     console.log(req.body.deviceInfo);
 
-    likeTask.find({code : req.body.itemCode},  function(err, tasks) {
+    likeTask.find({code : req.body.code},  function(err, tasks) {
         if (err) 
             console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
-
+        console.log(tasks)
 
         var likeData = {
             "count" : 0,
@@ -102,7 +90,7 @@ exports.likeCall = function (req, res) {
                 }
             });
         }
-
+        likeData.count = likeData.count.toString();
         console.log(likeData.count);
         console.log(likeData.status);
         res.send(likeData);
@@ -111,32 +99,80 @@ exports.likeCall = function (req, res) {
 
 // costomize post(/likePlus)
 exports.likePlus = function (req, res) {
-    // console.log(req.body);
-    console.log(req.body.itemCode);
+    console.log('in like puls');
+    console.log(req.body.code);
     console.log(req.body.deviceInfo);
     console.log(req.body.likeStatus);
     console.log(req.body.likeStatus == 'true');
+
     
     if(req.body.likeStatus == 'true') {
         // insert
         likeTask({
-            code : req.body.itemCode,
+            code : req.body.code,
             device : req.body.deviceInfo
         }).save();
+        likeTask.find({code : req.body.code},  function(err, tasks) {
+            if (err)
+                console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
+            console.log(tasks)
 
-        console.log('insert완료');
-        res.send('true');
+            var likeData = {
+                "count" : 0,
+                "status" : false
+            };
+
+            if(tasks.length > 0) {
+                // tasks for문
+                // length 0 >>> insert 0으로
+                // 있으면 reurn count // 좋아요상태
+                tasks.forEach(function (task) {
+                    likeData.count++;
+                    if(task.device == req.body.deviceInfo) {
+                        likeData.status = true;
+                    }
+                });
+            }
+            likeData.count = likeData.count.toString();
+            console.log(likeData.count);
+            console.log(likeData.status);
+            res.send(likeData);
+        });
     } else {
         //delete
         likeTask.remove({
-            code : req.body.itemCode,
+            code : req.body.code,
             device : req.body.deviceInfo
         },function(err, data){
             if(err) {
                 console.log(err);
             }
-            console.log('delete완료');
-            res.send(false)
+            likeTask.find({code : req.body.code},  function(err, tasks) {
+                if (err)
+                    console.log("/itemLike 에서 상태 on일때 update중 발생한 err => " + err);
+                console.log(tasks)
+
+                var likeData = {
+                    "count" : 0,
+                    "status" : false
+                };
+
+                if(tasks.length > 0) {
+                    // tasks for문
+                    // length 0 >>> insert 0으로
+                    // 있으면 reurn count // 좋아요상태
+                    tasks.forEach(function (task) {
+                        likeData.count++;
+                        if(task.device == req.body.deviceInfo) {
+                            likeData.status = true;
+                        }
+                    });
+                }
+                likeData.count = likeData.count.toString();
+                console.log(likeData.count);
+                console.log(likeData.status);
+                res.send(likeData);
+            });
         })
     }
 };
@@ -144,12 +180,9 @@ exports.likePlus = function (req, res) {
 
 // costomize post(/likePlus)
 exports.myLike = function (req, res) {
-    // console.log(req.body);
     console.log(req.body.deviceInfo);
-
     likeTask.find({device : req.body.deviceInfo},  function(err, tasks) {
         if (err) console.log("/myLike 에서 발생한 err => " + err);
-
         console.log(tasks);
         res.send(tasks);
     });
@@ -159,23 +192,11 @@ exports.myLike = function (req, res) {
 exports.search = function (req, res) {
     console.log("item search " + req.params.id);
     res.send("item search " + req.params.id);
-
-    // id = code , code값에 알맞은 값 select
 };
 
 // restful[2] insert
 exports.insert = function (req, res) {
     console.log("item insert");
-
-    // // insert sample
-    // Item = {
-    //     code : 001,
-    //     title : "title",
-    //     content : "content",
-    //     imgURL : "./img/imgURL.png",
-    //     like : 0
-    // }.save();
-
     res.send("item insert");
 };
 

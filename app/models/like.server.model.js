@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var LikeSchema = new Schema({
     code : String,
-    device : String,
-    // status : Boolean
+    device : String
 });
 
 module.exports = mongoose.model('Like', LikeSchema);
