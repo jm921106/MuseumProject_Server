@@ -47,6 +47,7 @@ exports.itemViewCount = function (req, res) {
             console.log(err);
 
         console.log(tasks.length)
+
         if (tasks.length > 0) {
             console.log('item view count update');
             ItemViewCount.update({code : tasks[0].code}, {$set: {count: tasks[0].count + 1}}, function () {
@@ -55,8 +56,7 @@ exports.itemViewCount = function (req, res) {
                     if(tasks.length > 0) {
                         res.send(tasks[0].count.toString());
                     } else {
-                        var zero = 0;
-                        res.send(zero.toString());
+                        res.send('0');
                     }
                 });
             });
@@ -70,9 +70,9 @@ exports.itemViewCount = function (req, res) {
                 ItemViewCount.find({code : req.body.code}, function (err, tasks) {
                     if (err) console.log(err);
                     if(tasks.length > 0) {
-                        res.send(tasks[0].count);
+                        res.send(tasks[0].count.toString());
                     } else {
-                        res.send(0);
+                        res.send('0');
                     }
                 });
             }catch(e) {
