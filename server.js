@@ -11,8 +11,8 @@ var express = require('./config/express');
 
 var db = mongoose();
 var app = express();
-app.listen(7777);
+app.listen(80);
 
 module.exports = app;
 
-console.log('Server running at http://localhost:7777/');
+console.log('Server running at http://localhost:80/');
