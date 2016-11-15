@@ -87,16 +87,16 @@ exports.patternFind = function (req, res) {
         if (err)
             console.log(err);
 
-        // [5개씩 보내기]
+        // [3개씩 보내기]
         var send_task = [];
-        for(var i=post_num*5; i<post_num*5+5; i++) {
+        for(var i=post_num*3; i<post_num*3+3; i++) {
             if(tasks[i] != undefined)
                 send_task.push(tasks[i])
         }
-        //0 0~4
-        //1 5~9
-        //2 10~14
-        //3 15~19
+        //0 0~2
+        //1 3~5
+        //2 6~8
+        //3 9~11
         // 5개만 미리 보내고 더 필요한 것은 추가 적으로 요청
         res.send(send_task);
     }); // find
