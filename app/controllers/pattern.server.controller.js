@@ -14,11 +14,11 @@ exports.render = function (req, res) {
 // costomize post(/patternInsert)
 exports.patternInsert = function (req, res) {
 
-    // console.log('in pattern insert');
-    // console.log(req.body.user_id);
-    // console.log(req.body.name);
-    // console.log(req.body.phone);
-    // console.log(req.body.address);
+    console.log('in pattern insert');
+    console.log(req.body.user_id);
+    console.log(req.body.name);
+    console.log(req.body.phone);
+    console.log(req.body.email);
 
     // 이미지를 해당 날짜 폴더에 자정 시키고 >>> 해당 url 을 디비에 저장 시킨다.
     var img_url = "img_url";
@@ -42,7 +42,7 @@ exports.patternInsert = function (req, res) {
                     user_id: req.body.user_id,
                     name: req.body.name,
                     phone: req.body.phone,
-                    address: req.body.address,
+                    email: req.body.email,
                     imgURL: filename,
                     like: 0
                 }).save();
@@ -157,18 +157,12 @@ exports.patternMaxFind = function (req, res) {
 
 // costomize post(/likeCall)
 exports.likeCall = function (req, res) {
-
-    console.log(req.body.imgURL);
-    console.log(req.body.deviceInfo);
-
     PaintLike.find({imgURL : req.body.imgURL},  function(err, tasks) {
         if (err) console.log("/patternLike 에서 발생한 err => " + err);
-
         var likeData = {
             "count" : 0,
             "status" : false
         };
-
         if(tasks.length > 0) {
             // tasks for문
             // length 0 >>> insert 0으로
@@ -180,20 +174,12 @@ exports.likeCall = function (req, res) {
                 }
             });
         }
-
-        console.log(likeData.count);
-        console.log(likeData.status);
         res.send(likeData);
     });
 }
 
 // costomize post(/likePlus)
 exports.likePlus = function (req, res) {
-    // console.log(req.body);
-    console.log(req.body.imgURL);
-    console.log(req.body.deviceInfo);
-    console.log(req.body.likeStatus);
-
     if(req.body.likeStatus == 'true') {
         // insert
         PaintLike({
@@ -226,14 +212,11 @@ exports.likePlus = function (req, res) {
 function decodeBase64Image(dataString) {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
         response = {};
-
     if (matches.length !== 3) {
         return new Error('Invalid input string');
     }
-
     response.type = matches[1];
     response.data = new Buffer(matches[2], 'base64');
-
     return response;
 }
 

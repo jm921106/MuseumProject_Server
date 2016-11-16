@@ -6,7 +6,7 @@ var PatternSchema = new Schema({
     user_id : String,
     name : String,
     phone : String,
-    address : String,
+    email : String,
     imgURL : String,
     like : Number
 });
