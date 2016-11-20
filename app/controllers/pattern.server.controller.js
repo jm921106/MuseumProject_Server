@@ -31,7 +31,7 @@ exports.patternInsert = function (req, res) {
         var file = req.body.result;
 
         var imageBuffer = decodeBase64Image(file);
-        console.log(imageBuffer);
+        // console.log(imageBuffer);
 
         fs.writeFile('public/repository/'+filename, imageBuffer.data, function (err) {
             if (err)
