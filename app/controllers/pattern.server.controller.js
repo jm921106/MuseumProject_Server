@@ -188,7 +188,8 @@ exports.likePlus = function (req, res) {
         }).save();
 
         console.log('insert완료');
-        res.send('true');
+        // res.send('true');
+        res.redirect(307, '/patternLikeCall');
     } else {
         //delete
         PaintLike.remove({
@@ -199,7 +200,8 @@ exports.likePlus = function (req, res) {
                 console.log(err);
             }
             console.log('delete완료');
-            res.send(false)
+            // res.send(false)
+            res.redirect(307, '/patternLikeCall');
         })
     }
 };
