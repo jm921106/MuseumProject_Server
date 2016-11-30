@@ -3,16 +3,15 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
-<h1>관리자 페이지</h1>
-<p>경기도박물관 - 의문의 조선</p>
-
 <a id="kakao-link-btn" href="javascript:;">
     <img src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
 </a>
 <script>
+
     // 사용할 앱의 Javascript 키를 설정해 주세요.
     Kakao.init('3928c10a89b73f2b4aa1a003fba1d0b8');
 
@@ -30,6 +29,19 @@
             url: 'https://play.google.com/store/apps/details?id=com.jj.MuseumInfo' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
         }
     });
+
+    var kakao_btn_id = document.getElementById('kakao-link-btn');
+
+    if( /*@cc_on ! @*/ false ) {
+        // IE
+        kakao_btn_id.fireEvent("onclick");
+    } else {
+        // Others
+        var event = document.createEvent("MouseEvents");
+        event.initEvent("click", false, true);
+        kakao_btn_id.dispatchEvent(event);
+    }
 </script>
+
 </body>
 </html>
