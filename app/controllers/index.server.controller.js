@@ -7,5 +7,5 @@ exports.render = function (req, res) {
 }
 
 exports.kakao = function (req, res) {
-    res.render('kakao');
+    res.render('kakao', { title: 'Express' });
 }
