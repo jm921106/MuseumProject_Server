@@ -5,3 +5,7 @@
 exports.render = function (req, res) {
     res.render('index', { title: 'Express' });
 }
+
+exports.kakao = function (req, res) {
+    res.render('kakao');
+}

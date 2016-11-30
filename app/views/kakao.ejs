@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css'/>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+</head>
+<body>
+<h1>관리자 페이지</h1>
+<p>경기도박물관 - 의문의 조선</p>
+
+<a id="kakao-link-btn" href="javascript:;">
+    <img src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
+</a>
+<script>
+    // 사용할 앱의 Javascript 키를 설정해 주세요.
+    Kakao.init('3928c10a89b73f2b4aa1a003fba1d0b8');
+
+    // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createTalkLinkButton({
+        container: '#kakao-link-btn',
+        label: '구글스토어에 <의문의 조선>을 검색해 주세요 !',
+        image: {
+            src: 'http://54.165.224.112/public/image/kakao_icon.png',
+            width: '300',
+            height: '300'
+        },
+        webButton: {
+            text: '경기도박물관 <특별전> 의문의 조선',
+            url: 'https://play.google.com/store/apps/details?id=com.jj.MuseumInfo' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+        }
+    });
+</script>
+</body>
+</html>
