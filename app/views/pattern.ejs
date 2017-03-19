@@ -7,9 +7,9 @@
 <body style="margin: 50px;">
 
 <span>
-    <h1>소원을 담은 문양 페이지 [<%= parseInt(month+1)%>월]</h1>
+    <h1>소원을 담은 문양 페이지 [<%= parseInt(year) + '-' + parseInt(month)%>월]</h1>
     <form method="post" action="/patternMaxFind">
-        <input type="text" name="month" placeholder="원하는 달을 입력해주세요... ">
+        <input style="width:350px;" type="text" name="post_date" placeholder="검색하고자 하는 [ 년/월 ] 을 입력. ( ex. YYYY-MM )">
         <input type="submit" value="확인"/>
     </form>
     <br><br><br><br>
@@ -20,8 +20,7 @@
     <tr>
         <th style="width : 5vw;">순서</th>
         <th style="width : 7vw;">이름</th>
-        <th style="width : 10vw;">핸드폰</th>
-        <th style="width : 20vw;">주소</th>
+        <th style="width : 10vw;">email</th>
         <th style="width : 5vw;">좋아요</th>
         <th style="width : 5vw;">이미지</th>
     </tr>
@@ -29,9 +28,8 @@
     <tr>
         <td><%= parseInt(i+1) %> 등</td>
         <td><%= tasks[i].name %></td>
-        <td><%= tasks[i].phone %></td>
-        <td><%= tasks[i].address %></td>
-        <td><%= tasks[i].count %></td>
+        <td><%= tasks[i].email %></td>
+        <td><%= tasks[i].like %></td>
         <% var imgURL = "/public/repository/" + tasks[i].imgURL %>
         <td><img style="width:150px; height:150px;" src='<%= imgURL %>'/></td>
     </tr>

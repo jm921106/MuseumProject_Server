@@ -104,50 +104,79 @@ exports.patternFind = function (req, res) {
 
 // costomize get(/patternSelect)
 exports.patternMaxFind = function (req, res) {
-    console.log('in patternMaxFind')
+    // console.log('in patternMaxFind')
    
-    var post_month;
-    if(req.body.month == undefined) {
-        post_month = new Date().getMonth();
-    } else {
-        post_month = parseInt(req.body.month)-1;
-    }
+    var date, year, month, day;
+    date = new Date();
 
+    // 검색요청 있을때 없을때
+    if(req.body.post_date == undefined) {
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+    } else {
+        year = req.body.post_date.split('-')[0];
+        month = parseInt(req.body.post_date.split('-')[1]);
+    }
+    day = 1;
+
+    // 검색 시작 ~ 종료 일자 설정
+    var start, end;
+    start = new Date(year + '-' + month + '-' + day);
+    end = new Date(start);
+    end.setMonth(end.getMonth()+1);
+
+
+    // 해당 달 조회
+    var find_query = {
+        date : {
+            $gte: start,
+            $lte: end
+        }
+    }
     // send every month data
-    Paint.find(function (err, tasks) {
+    Paint.find(find_query, function (err, tasks) {
         if (err)
             console.log(err);
 
-        var send_task = [];
-
+        // 데이터 있다면
         if(tasks.length > 0) {
-            // 11월 데이터
-            tasks.forEach(function(task, i) {
-                if(task.date.getMonth() == post_month) {
 
-                    // send_task.push(task);
-                    // send_task[i].count = 0;
-                    // PaintLike.find(function(err, likeTasks){
-                    //     likeTasks.forEach(function(likeTask) {
-                    //         if(task.imgURL == likeTask.imgURL) {
-                    //             send_task[i].count += 1;
-                    //             console.log(send_task[i].count)
-                    //         }
-                    //     });
-                    // });
-
-                    res.render("pattern", {
-                        title: 'pattern',
-                        month: post_month,
-                        tasks: tasks
-                    });
-                }
+            tasks.forEach(function(v,i) {
+               v.like = 0;
             });
 
+            PaintLike.find(function(err, likes) {
+
+                // 좋아요 갯수 파악
+                likes.forEach(function(v,i) {
+                    tasks.forEach(function(tv,ti) {
+                        if(tv.imgURL == v.imgURL) {
+                            tv.like += 1;
+                        }
+                    });
+                });
+
+                // 좋아요 순 정렬
+                tasks.sort(function(a, b) {
+                    return parseFloat(b.like) - parseFloat(a.like);
+                });
+
+                res.render("pattern", {
+                    title: 'pattern',
+                    year: year,
+                    month: month,
+                    tasks: tasks
+                });
+            });
+
+        // 데이터 없다면
         } else {
+            console.log('test1');
             res.render("pattern", {
                 title: 'pattern',
                 status: 'render',
+                year: year,
+                month: month,
                 tasks: []
             });
         }

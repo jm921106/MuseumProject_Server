@@ -52,9 +52,9 @@ exports.itemViewCount = function (req, res) {
             console.log('item view count update');
             if(req.body.status)
                 var count = tasks[0].count;
-            else 
+            else
                 var count = tasks[0].count + 1;
-            
+
             ItemViewCount.update({code : tasks[0].code}, {$set: {count: count}}, function () {
                 ItemViewCount.find({code : req.body.code}, function (err, tasks) {
                     if (err) console.log(err);
